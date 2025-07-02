@@ -5,10 +5,8 @@ class Solution {
        for(char ch:s.toCharArray()){
         right[ch]++;
        }
-       right[s.charAt(0)]--;
-       left[s.charAt(0)]++;
        Set<String>seq=new HashSet<>();
-       for(int i=1;i<s.length();i++){
+       for(int i=0;i<s.length();i++){
         char middle=s.charAt(i);
         right[middle]--;
         for(char ch='a';ch<='z';ch++){
