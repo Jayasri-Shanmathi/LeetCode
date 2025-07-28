@@ -1,47 +1,42 @@
 class Solution {
     public int orangesRotting(int[][] grid) {
-        int r=grid.length;
-        int c=grid[0].length;
-        int days=-1;int oranges=0;
-        boolean[][] visited=new boolean[r][c];
-        Queue<int[]>queue=new LinkedList<>();
-        for(int i=0;i<r;i++){
-            for(int j=0;j<c;j++){
-                if(grid[i][j]!=0){
-                    if(grid[i][j]==2){
-                    queue.add(new int[]{i,j});
-                }
-                oranges++;
+       int R=grid.length;int C=grid[0].length;
+       int days=-1;int oranges=0;
+       Queue<int[]> queue=new LinkedList<>();
+       boolean[][]visited=new boolean[R][C];
+       for(int row=0;row<R;row++){
+        for(int col=0;col<C;col++){
+            if(grid[row][col]!=0){
+            if(grid[row][col]==2){                
+                queue.add(new int[]{row,col});
+            }oranges++;
             }
-        }}
-        if(oranges==0)
-           return 0;
-        int diff[][]=new int[][]{{0,-1},{0,1},{-1,0},{1,0}};
-        while(!queue.isEmpty()){
-            days++;
-            int qsize=queue.size();
-            int a=0;int b=0;
-            for(int ctr=1;ctr<=qsize;ctr++){
-                int cell[]=queue.poll();
-                oranges--;
-                for(int index=0;index<4;index++){
-                    int adjR=cell[0]+diff[index][0];
-                    int adjC=cell[1]+diff[index][1];
-                    if(adjR>=0 && adjR<r && adjC>=0 && adjC<c){
-                        if(grid[adjR][adjC]==1 && !visited[adjR][adjC]){
-                            queue.add(new int[]{adjR,adjC});
-                            visited[adjR][adjC]=true;
-                        }
-                    }
-                }
-            }
-            
-        
-        
         }
-        if(oranges>0)
-           return -1;
-        return days;   
+       }
+       if(oranges==0) return 0;
+       while(!queue.isEmpty()){
+        days++;
+        int size=queue.size();
+        for(int i=0;i<size;i++){
+            int[]cell=queue.poll();
+            int[][]diff={{0,1},{1,0},{0,-1},{-1,0}};
+            for(int a=0;a<4;a++){
+                int adjR=cell[0]+diff[a][0];
+                int adjC=cell[1]+diff[a][1];
+                if(adjR>=0 && adjR<R && adjC>=0 && adjC<C && !visited[adjR][adjC] && grid[adjR][adjC]==1 ){
+                    visited[adjR][adjC]=true;grid[adjR][adjC]=2;                    
+                    queue.add(new int[]{adjR,adjC});
+                }
+            }
+        }
+           
+    }  for(int i=0;i<R;i++){
+        for(int j=0;j<C;j++){
+            if(grid[i][j]==1) return -1;
+        }
+    }
+
+       return days; 
 
     }
 }
