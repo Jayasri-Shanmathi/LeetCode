@@ -9,6 +9,7 @@ class Solution {
             if(grid[row][col]!=0){
             if(grid[row][col]==2){                
                 queue.add(new int[]{row,col});
+                visited[row][col]=true;
             }oranges++;
             }
         }
